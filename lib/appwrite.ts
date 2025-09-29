@@ -1,26 +1,32 @@
 // lib/appwrite.ts
-import { CreateUserParams, SignInParams } from '@/type';
+import { CreateUserParams, GetMenuParams, SignInParams } from '@/type';
 import { Alert } from 'react-native';
-import { Account, Avatars, Client, Databases, ID, TablesDB } from 'react-native-appwrite';
+import { Account, Avatars, Client, Databases, ID, Query, Storage, TablesDB } from 'react-native-appwrite';
 export const appwriteConfig = {
   endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT, // Your Appwrite endpoint
-  Platform: "com.fis.foodordering",
+  Platform: process.env.EXPO_PUBLIC_APPWRITE_PLATFORM,
   projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID, // Your project ID
   databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID, // Your database ID
+  storageId: process.env.EXPO_PUBLIC_APPWRITE_STORAGE_ID, // Your storage ID
   usersCollectionId: process.env.EXPO_PUBLIC_APPWRITE_USERS_COLLECTION_ID, // Your users collection ID
   ordersCollectionId: process.env.EXPO_PUBLIC_APPWRITE_ORDERS_COLLECTION_ID, // Your orders collection ID
+  categoriesCollectionId: process.env.EXPO_PUBLIC_APPWRITE_CATEGORIES_COLLECTION_ID, // Your categories collection ID
+  menuCollectionId: process.env.EXPO_PUBLIC_APPWRITE_MENU_COLLECTION_ID, // Your menu collection ID
+  customizationsCollectionId: process.env.EXPO_PUBLIC_APPWRITE_CUSTOMIZATIONS_COLLECTION_ID, // Your customization collection ID
+  menuCustomizationsCollectionId: process.env.EXPO_PUBLIC_APPWRITE_MENU_CUSTOMIZATIONS_COLLECTION_ID, // Your menu customization collection ID
 };
 
 export const client = new Client();
 client
   .setEndpoint(appwriteConfig.endpoint!) // Your Appwrite Endpoint
   .setProject(appwriteConfig.projectId!) // Your project ID
-  .setPlatform(appwriteConfig.Platform); // Your project Platform
+  .setPlatform(appwriteConfig.Platform!); // Your project Platform
 
 export const account = new Account(client);
 export const databases = new Databases(client);
 export const avatars = new Avatars(client);
 export const tablesDB = new TablesDB(client);
+export const storage = new Storage(client);
 
 export const createUser = async ({  email, password, name }: CreateUserParams) => {
   try {
@@ -88,3 +94,35 @@ export const getCurrentUser = async () => {
     throw new Error('Failed to get user');
   }
 };
+
+export const getMenu = async ({ category, query }: GetMenuParams) => {
+    try {
+        const queries: string[] = [];
+
+        if(category) queries.push(Query.equal('categories', category));
+        if(query) queries.push(Query.search('name', query));
+
+        const menus = await databases.listDocuments(
+            appwriteConfig.databaseId!,
+            appwriteConfig.menuCollectionId!,
+            queries,
+        )
+
+        return menus.documents;
+    } catch (e) {
+        throw new Error(e as string);
+    }
+}
+
+export const getCategories = async () => {
+    try {
+        const categories = await databases.listDocuments(
+            appwriteConfig.databaseId!,
+            appwriteConfig.categoriesCollectionId!,
+        )
+
+        return categories.documents;
+    } catch (e) {
+        throw new Error(e as string);
+    }
+}

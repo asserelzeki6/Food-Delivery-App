@@ -1,9 +1,11 @@
-import { View, Text, Touchable, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
 import { images } from '@/constants';
+import { useCartStore } from '@/store/cart.store';
+import React from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 const CartButton = () => {
-    const totalItems = 3; // Example item count
+    const { itemsCount } = useCartStore();
+
     const cartPressHandler = () => {
         // Handle cart button press
         console.log("Cart button pressed");
@@ -15,9 +17,9 @@ const CartButton = () => {
             className="size-5"
             resizeMode="contain"
           />
-          {totalItems > 0 && (
+          {itemsCount > 0 && (
             <View className="cart-badge">
-              <Text className="small-bold text-white">{totalItems}</Text>
+              <Text className="small-bold text-white">{itemsCount}</Text>
             </View>
           )}
         </TouchableOpacity>

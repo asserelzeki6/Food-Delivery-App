@@ -40,6 +40,7 @@ export interface CartItemType {
 
 export interface CartStore {
     items: CartItem[];
+    itemsCount: number;
     addItem: (item: Omit<CartItem, "quantity">) => void;
     removeItem: (id: string, customizations: CartCustomization[]) => void;
     increaseQty: (id: string, customizations: CartCustomization[]) => void;
