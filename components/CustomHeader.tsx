@@ -4,7 +4,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { images } from "@/constants";
 import { CustomHeaderProps } from "@/type";
 
-const CustomHeader = ({ title }: CustomHeaderProps) => {
+const CustomHeader = ({ title, btn, btnOnPress }: CustomHeaderProps) => {
     const router = useRouter();
 
     return (
@@ -18,8 +18,25 @@ const CustomHeader = ({ title }: CustomHeaderProps) => {
             </TouchableOpacity>
 
             {title && <Text className="base-semibold text-dark-100">{title}</Text>}
+            {btn && btnOnPress && (
+                <TouchableOpacity onPress={btnOnPress}>
+                    <Image
+                        source={btn}
+                        className="size-7"
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
+            )}
+            {!btn && !btnOnPress && (
+                <TouchableOpacity onPress={() => router.push('/(tabs)/search')}>
+                    <Image
+                        source={images.search}
+                        className="size-5"
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
+            )}
 
-            <Image source={images.search} className="size-5" resizeMode="contain" />
         </View>
     );
 };

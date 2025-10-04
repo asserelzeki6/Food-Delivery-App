@@ -1,11 +1,13 @@
 import CustomButton from '@/components/CustomButton';
 import CustomInput from '@/components/CustomInput';
 import { signIn } from '@/lib/appwrite';
+import useAuthStore from '@/store/auth.store';
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 
 const SignIn = () => {
+  const { setIsAuthenticated } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
@@ -19,7 +21,9 @@ const SignIn = () => {
     try {
       // call appwrite sign in
       await signIn({ email, password });
+      setIsAuthenticated(true);
       Alert.alert('Success', 'You are now signed in');
+
       router.replace('/(tabs)');
     }catch (error: any) {
       Alert.alert('Error', (error as string) || ' Invalid email or password');

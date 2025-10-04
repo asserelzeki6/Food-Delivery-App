@@ -5,6 +5,7 @@ import { Dimensions, Image, ImageBackground, KeyboardAvoidingView, Platform, Scr
 
 export default function AuthLayout() {
   const {isAuthenticated} = useAuthStore();
+  // const isAuthenticated = true; // Replace with actual authentication check
   if (isAuthenticated) {
     return <Redirect href="/(tabs)" />
   }

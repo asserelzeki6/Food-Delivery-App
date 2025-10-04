@@ -4,7 +4,8 @@ import CustomHeader from "@/components/CustomHeader";
 import { useCartStore } from "@/store/cart.store";
 import { PaymentInfoStripeProps } from '@/type';
 import cn from "clsx";
-import { FlatList, Image, Text, View } from 'react-native';
+import { router } from "expo-router";
+import { Alert, FlatList, Image, Text, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 const PaymentInfoStripe = ({ label,  value,  labelStyle,  valueStyle, }: PaymentInfoStripeProps) => (
@@ -19,10 +20,15 @@ const PaymentInfoStripe = ({ label,  value,  labelStyle,  valueStyle, }: Payment
 );
 
 const Cart = () => {
-    const { items, getTotalItems, getTotalPrice } = useCartStore();
+    const { items, getTotalItems, getTotalPrice, clearCart } = useCartStore();
 
     const totalItems = getTotalItems();
     const totalPrice = getTotalPrice();
+    const OrderNowHandler = () => {
+        Alert.alert("Order Placed", "Your order has been placed successfully!");
+        clearCart();
+        router.navigate('/(tabs)/search');
+    }
 
     return (
         <SafeAreaView className="bg-white h-full">
@@ -31,7 +37,7 @@ const Cart = () => {
                 renderItem={({ item }) => <CartItem item={item} />}
                 keyExtractor={(item) => item.id}
                 contentContainerClassName="pb-28 px-5 pt-5"
-                ListHeaderComponent={() => <CustomHeader title="Your Cart" />}
+                ListHeaderComponent={() => <CustomHeader title="Your Cart" btn={images.trash} btnOnPress={() => clearCart()} />}
                 ListEmptyComponent={() => 
                   <View className="flex-1 items-center justify-center mt-20">
                       <Image
@@ -76,7 +82,7 @@ const Cart = () => {
                             />
                         </View>
 
-                        <CustomButton title="Order Now" />
+                        <CustomButton title="Order Now" onPress={OrderNowHandler} />
                     </View>
                 )}
             />

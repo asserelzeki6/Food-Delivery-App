@@ -74,6 +74,8 @@ interface CustomButtonProps {
 
 interface CustomHeaderProps {
     title?: string;
+    btn?: ImageSourcePropType;
+    btnOnPress?: () => void;
 }
 
 interface CustomInputProps {

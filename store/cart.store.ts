@@ -18,6 +18,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
     itemsCount: 0,
 
     addItem: (item) => {
+        console.log('Adding item to cart:', item);
+        console.log('Current cart items:', get().items);
         const customizations = item.customizations ?? [];
 
         const existing = get().items.find(
@@ -35,15 +37,18 @@ export const useCartStore = create<CartStore>((set, get) => ({
                         : i
                 ),
             });
+            set({ itemsCount: get().itemsCount + 1 });
+
         } else {
             set({
                 items: [...get().items, { ...item, quantity: 1, customizations }],
             });
+            set({ itemsCount: get().itemsCount + 1 });
         }
-        set({ itemsCount: get().getTotalItems() + 1 });
     },
 
     removeItem: (id, customizations = []) => {
+        console.log('Removing item from cart:', { id, customizations });
         set({
             items: get().items.filter(
                 (i) =>
@@ -53,10 +58,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
                     )
             ),
         });
-        set({ itemsCount: get().getTotalItems() - 1 });
+        set({ itemsCount: get().items.length });
     },
 
     increaseQty: (id, customizations = []) => {
+        console.log('Increasing quantity for item:', { id, customizations });
         set({
             items: get().items.map((i) =>
                 i.id === id &&
@@ -65,10 +71,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
                     : i
             ),
         });
-        set({ itemsCount: get().getTotalItems() + 1 });
+        set({ itemsCount: get().itemsCount + 1 });
     },
 
     decreaseQty: (id, customizations = []) => {
+        console.log('Decreasing quantity for item:', { id, customizations });
         set({
             items: get()
                 .items.map((i) =>
@@ -79,7 +86,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
                 )
                 .filter((i) => i.quantity > 0),
         });
-        set({ itemsCount: get().getTotalItems() - 1 });
+        set({ itemsCount: get().itemsCount - 1 });
     },
 
     clearCart: () => set({ items: [], itemsCount: 0 }),

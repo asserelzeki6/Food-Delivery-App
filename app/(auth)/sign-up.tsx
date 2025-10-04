@@ -1,11 +1,13 @@
 import CustomButton from '@/components/CustomButton';
 import CustomInput from '@/components/CustomInput';
 import { createUser } from '@/lib/appwrite';
+import useAuthStore from '@/store/auth.store';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 
 const SignUp = () => {
+  const { setIsAuthenticated } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
@@ -25,6 +27,7 @@ const SignUp = () => {
         name,
       });
       Alert.alert('Success', 'You are now signed up');
+      setIsAuthenticated(true);
       router.replace('/(tabs)');
     }catch (error: any) {
       Alert.alert("something went wrong", error.message || 'Failed to sign up');

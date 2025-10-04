@@ -7,32 +7,35 @@ import cn from "clsx";
 import { useLocalSearchParams } from "expo-router";
 import { FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import dummyData from "../../lib/data";
+// import dummyData from "../../lib/data";
+import { getCategories, getMenu } from "@/lib/appwrite";
+import useAppwrite from "@/lib/useAppwrite";
+import { useEffect } from "react";
 
 const Search = () => {
     const { category, query } = useLocalSearchParams<{query: string; category: string}>()
 
-    // const { data, refetch, loading } = useAppwrite({ fn: getMenu, params: { category,  query,  limit: 6, } });
-    // const { data: categories } = useAppwrite({ fn: getCategories });
-    const data = {
-        menus: dummyData.menu.filter(menu => {
-            const matchesCategory = category && category !== 'all' ? menu.category_name === category : true;
-            const matchesQuery = query ? menu.name.toLowerCase().includes(query.toLowerCase()) : true;
-            return matchesCategory && matchesQuery;
-        }),
-        // categories: dummyData.categories || CATEGORIES
-    }
-    const loading = false;
-    const categories = dummyData.categories;
+    const { data, refetch, loading } = useAppwrite({ fn: getMenu, params: { category,  query,  limit: 6, } });
+    const { data: categories } = useAppwrite({ fn: getCategories });
+    // const data = {
+    //     menus: dummyData.menu.filter(menu => {
+    //         const matchesCategory = category && category !== 'all' ? menu.category_name === category : true;
+    //         const matchesQuery = query ? menu.name.toLowerCase().includes(query.toLowerCase()) : true;
+    //         return matchesCategory && matchesQuery;
+    //     }),
+    //     // categories: dummyData.categories || CATEGORIES
+    // }
+    // const loading = false;
+    // const categories = dummyData.categories;
     // For demo purposes, we'll use dummy data
-    // useEffect(() => {
-    //     refetch({ category, query, limit: 6})
-    // }, [category, query]);
+    useEffect(() => {
+        refetch({ category, query, limit: 6})
+    }, [category, query]);
 
     return (
         <SafeAreaView className="bg-white h-full">
             <FlatList
-                data={data.menus}
+                data={data}
                 renderItem={({ item, index }) => {
                     const isFirstRightColItem = index % 2 === 0;
 
@@ -42,7 +45,7 @@ const Search = () => {
                         </View>
                     )
                 }}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.$id}
                 numColumns={2}
                 columnWrapperClassName="gap-7"
                 contentContainerClassName="gap-7 px-5 pb-32"
@@ -71,3 +74,7 @@ const Search = () => {
 }
 
 export default Search
+
+// function useAppwrite(arg0: { fn: any; params: { category: string; query: string; limit: number; }; }): { data: any; refetch: any; loading: any; } {
+//     throw new Error("Function not implemented.");
+// }

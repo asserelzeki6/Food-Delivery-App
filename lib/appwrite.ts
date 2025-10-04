@@ -1,7 +1,7 @@
 // lib/appwrite.ts
 import { CreateUserParams, GetMenuParams, SignInParams } from '@/type';
-import { Alert } from 'react-native';
 import { Account, Avatars, Client, Databases, ID, Query, Storage, TablesDB } from 'react-native-appwrite';
+
 export const appwriteConfig = {
   endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT, // Your Appwrite endpoint
   Platform: process.env.EXPO_PUBLIC_APPWRITE_PLATFORM,
@@ -54,7 +54,7 @@ export const createUser = async ({  email, password, name }: CreateUserParams) =
       },
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     throw new Error((error as string) + ' Failed to create user');
   }
 };
@@ -66,12 +66,25 @@ export const signIn = async ({ email, password }: SignInParams) => {
       email, 
       password,
     });
+    if (!session) throw new Error('Failed to sign in');
+    
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     throw new Error((error as string) + ' Failed to sign in');
   }
 };
 
+export const signOut = async () => {
+  try {
+    await account.deleteSession({
+      sessionId: 'current'
+  });
+    // router.replace('/');
+  } catch (error) {
+    console.error(error);
+    throw new Error((error as string) + ' Failed to sign out');
+  }
+};
 
 export const getCurrentUser = async () => {
   try {
@@ -88,9 +101,11 @@ export const getCurrentUser = async () => {
         $id: currentUser.$id,
         name: currentUser.name,
         email: currentUser.email,
+        avatar: currentUser.avatar,
       };
   } catch (error) {
-    Alert.alert('Error', error as string || 'Failed to get user');
+    // Alert.alert('Error', error as string || 'Failed to get user');
+    console.error(error);
     throw new Error('Failed to get user');
   }
 };
@@ -98,17 +113,18 @@ export const getCurrentUser = async () => {
 export const getMenu = async ({ category, query }: GetMenuParams) => {
     try {
         const queries: string[] = [];
-
+        console.log(category, query);
         if(category) queries.push(Query.equal('categories', category));
         if(query) queries.push(Query.search('name', query));
 
-        const menus = await databases.listDocuments(
-            appwriteConfig.databaseId!,
-            appwriteConfig.menuCollectionId!,
-            queries,
-        )
+        const menus = await tablesDB.listRows({
+            databaseId: appwriteConfig.databaseId!,
+            tableId: appwriteConfig.menuCollectionId!,
+            queries: queries,
+        })
+        console.log(menus);
 
-        return menus.documents;
+        return menus.rows;
     } catch (e) {
         throw new Error(e as string);
     }
@@ -116,12 +132,12 @@ export const getMenu = async ({ category, query }: GetMenuParams) => {
 
 export const getCategories = async () => {
     try {
-        const categories = await databases.listDocuments(
-            appwriteConfig.databaseId!,
-            appwriteConfig.categoriesCollectionId!,
-        )
+        const categories = await tablesDB.listRows({
+            databaseId: appwriteConfig.databaseId!,
+            tableId: appwriteConfig.categoriesCollectionId!,
+        })
 
-        return categories.documents;
+        return categories.rows;
     } catch (e) {
         throw new Error(e as string);
     }

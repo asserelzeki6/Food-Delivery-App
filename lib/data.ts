@@ -1,40 +1,40 @@
 const dummyData = {
     categories: [
-        { id:1, name: "Burgers", description: "Juicy grilled burgers" },
-        { id:2, name: "Pizzas", description: "Oven-baked cheesy pizzas" },
-        { id:3, name: "Burritos", description: "Rolled Mexican delights" },
-        { id:4, name: "Sandwiches", description: "Stacked and stuffed sandwiches" },
-        { id:5, name: "Wraps", description: "Rolled up wraps packed with flavor" },
-        { id:6, name: "Bowls", description: "Balanced rice and protein bowls" },
+        { /*id:1,*/ name: "Burgers", description: "Juicy grilled burgers" },
+        { /*id:2,*/ name: "Pizzas", description: "Oven-baked cheesy pizzas" },
+        { /*id:3,*/ name: "Burritos", description: "Rolled Mexican delights" },
+        { /*id:4,*/ name: "Sandwiches", description: "Stacked and stuffed sandwiches" },
+        { /*id:5,*/ name: "Wraps", description: "Rolled up wraps packed with flavor" },
+        { /*id:6,*/ name: "Bowls", description: "Balanced rice and protein bowls" },
     ],
 
     customizations: [   
         // Toppings
-        { id: 1, name: "Extra Cheese", price: 25, type: "topping" },
-        { id: 2, name: "Jalapeños", price: 20, type: "topping" },
-        { id: 3, name: "Onions", price: 10, type: "topping" },
-        { id: 4, name: "Olives", price: 15, type: "topping" },
-        { id: 5, name: "Mushrooms", price: 18, type: "topping" },
-        { id: 6, name: "Tomatoes", price: 10, type: "topping" },
-        { id: 7, name: "Bacon", price: 30, type: "topping" },
-        { id: 8, name: "Avocado", price: 35, type: "topping" },
+        { /*id: 1,*/ name: "Extra Cheese", price: 25, type: "topping" },
+        { /*id: 2,*/ name: "Jalapeños", price: 20, type: "topping" },
+        { /*id: 3,*/ name: "Onions", price: 10, type: "topping" },
+        { /*id: 4,*/ name: "Olives", price: 15, type: "topping" },
+        { /*id: 5,*/ name: "Mushrooms", price: 18, type: "topping" },
+        { /*id: 6,*/ name: "Tomatoes", price: 10, type: "topping" },
+        { /*id: 7,*/ name: "Bacon", price: 30, type: "topping" },
+        { /*id: 8,*/ name: "Avocado", price: 35, type: "topping" },
 
         // Sides
-        { id: 9, name: "Coke", price: 30, type: "side" },
-        { id: 10, name: "Fries", price: 35, type: "side" },
-        { id: 11, name: "Garlic Bread", price: 40, type: "side" },
-        { id: 12, name: "Chicken Nuggets", price: 50, type: "side" },
-        { id: 13, name: "Iced Tea", price: 28, type: "side" },
-        { id: 14, name: "Salad", price: 33, type: "side" },
-        { id: 15, name: "Potato Wedges", price: 38, type: "side" },
-        { id: 16, name: "Mozzarella Sticks", price: 45, type: "side" },
-        { id: 17, name: "Sweet Corn", price: 25, type: "side" },
-        { id: 18, name: "Choco Lava Cake", price: 42, type: "side" },
+        { /*id: 9,*/ name: "Coke", price: 30, type: "side" },
+        { /*id: 10,*/ name: "Fries", price: 35, type: "side" },
+        { /*id: 11,*/ name: "Garlic Bread", price: 40, type: "side" },
+        { /*id: 12,*/ name: "Chicken Nuggets", price: 50, type: "side" },
+        { /*id: 13,*/ name: "Iced Tea", price: 28, type: "side" },
+        { /*id: 14,*/ name: "Salad", price: 33, type: "side" },
+        { /*id: 15,*/ name: "Potato Wedges", price: 38, type: "side" },
+        { /*id: 16,*/ name: "Mozzarella Sticks", price: 45, type: "side" },
+        { /*id: 17,*/ name: "Sweet Corn", price: 25, type: "side" },
+        { /*id: 18,*/ name: "Choco Lava Cake", price: 42, type: "side" },
     ],
 
     menu: [
         {
-            id: "1",
+            /*id: "1",*/
             name: "Classic Cheeseburger",
             description: "Beef patty, cheese, lettuce, tomato",
             image_url:
@@ -47,7 +47,7 @@ const dummyData = {
             customizations: ["Extra Cheese", "Coke", "Fries", "Onions", "Bacon"],
         },
         {
-            id: "2",
+            /*id: "2",*/
             name: "Pepperoni Pizza",
             description: "Loaded with cheese and pepperoni slices",
             image_url:
@@ -66,7 +66,7 @@ const dummyData = {
             ],
         },
         {
-            id: "3",
+            /*id: "3",*/
             name: "Bean Burrito",
             description: "Stuffed with beans, rice, salsa",
             image_url:
@@ -79,7 +79,7 @@ const dummyData = {
             customizations: ["Jalapeños", "Iced Tea", "Fries", "Salad"],
         },
         {
-            id: "4",
+            /*id: "4",*/
             name: "BBQ Bacon Burger",
             description: "Smoky BBQ sauce, crispy bacon, cheddar",
             image_url:
@@ -92,7 +92,7 @@ const dummyData = {
             customizations: ["Onions", "Fries", "Coke", "Bacon", "Avocado"],
         },
         {
-            id: "5",
+            /*id: "5",*/
             name: "Chicken Caesar Wrap",
             description: "Grilled chicken, lettuce, Caesar dressing",
             image_url:
@@ -105,7 +105,7 @@ const dummyData = {
             customizations: ["Extra Cheese", "Coke", "Potato Wedges", "Tomatoes"],
         },
         {
-            id: "6",
+            /*id: "6",*/
             name: "Grilled Veggie Sandwich",
             description: "Roasted veggies, pesto, cheese",
             image_url:
@@ -118,7 +118,7 @@ const dummyData = {
             customizations: ["Mushrooms", "Olives", "Mozzarella Sticks", "Iced Tea"],
         },
         {
-            id: "7",
+            /*id: "7",*/
             name: "Double Patty Burger",
             description: "Two juicy beef patties and cheese",
             image_url:
@@ -137,7 +137,7 @@ const dummyData = {
             ],
         },
         {
-            id: "8",
+            /*id: "8",*/
             name: "Paneer Tikka Wrap",
             description: "Spicy paneer, mint chutney, veggies",
             image_url:
@@ -150,7 +150,7 @@ const dummyData = {
             customizations: ["Jalapeños", "Tomatoes", "Salad", "Fries", "Iced Tea"],
         },
         {
-            id: "9",
+            /*id: "9",*/
             name: "Mexican Burrito Bowl",
             description: "Rice, beans, corn, guac, salsa",
             image_url:
@@ -162,8 +162,8 @@ const dummyData = {
             category_name: "Bowls",
             customizations: ["Avocado", "Sweet Corn", "Salad", "Iced Tea"],
         },
-        {   
-            id: "10",
+        {
+            /*id: "10",*/
             name: "Spicy Chicken Sandwich",
             description: "Crispy chicken, spicy sauce, pickles",
             image_url:
@@ -182,7 +182,7 @@ const dummyData = {
             ],
         },
         {
-            id: "11",
+            /*id: "11",*/
             name: "Classic Margherita Pizza",
             description: "Tomato, mozzarella, fresh basil",
             image_url:
@@ -195,7 +195,7 @@ const dummyData = {
             customizations: ["Extra Cheese", "Olives", "Coke", "Garlic Bread"],
         },
         {
-            id: "12",
+            /*id: "12",*/
             name: "Protein Power Bowl",
             description: "Grilled chicken, quinoa, veggies",
             image_url:
@@ -208,7 +208,7 @@ const dummyData = {
             customizations: ["Avocado", "Salad", "Sweet Corn", "Iced Tea"],
         },
         {
-            id: "13",
+            /*id: "13",*/
             name: "Paneer Burrito",
             description: "Paneer cubes, spicy masala, rice, beans",
             image_url:
@@ -221,7 +221,7 @@ const dummyData = {
             customizations: ["Jalapeños", "Fries", "Garlic Bread", "Coke"],
         },
         {
-            id: "14",
+            /*id: "14",*/
             name: "Chicken Club Sandwich",
             description: "Grilled chicken, lettuce, cheese, tomato",
             image_url:
